@@ -8,7 +8,7 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 public class PartialPackageBuilder {
-	private List<Mapping> mappings = new ArrayList<Mapping>();
+	private Mappings mappings = new Mappings();
 	private File srcFolder;
 	private File destFolder;
 
@@ -20,20 +20,30 @@ public class PartialPackageBuilder {
 		this.destFolder = destFolder;
 	}
 
-	public void addMapping(String src, String dest) {
-		mappings.add(new Mapping(src, dest));
-	}
-
 	public void build() {
-		for (Mapping mapping : this.mappings) {
-			File srcFile = new File(this.srcFolder, mapping.getSrc());
-			File destFile = new File(this.destFolder, mapping.getDest());
+		for (Mapping mapping : mappings.toList()) {
+			File src = new File(this.srcFolder, mapping.getSrc());
+			File dest = new File(this.destFolder, mapping.getDest());
 			try {
-				FileUtils.copyFile(srcFile, destFile);
+				if (isFolderByName(mapping.getSrc()) && isFolderByName(mapping.getDest())){
+					FileUtils.copyDirectoryToDirectory(src, dest);
+				} else if (!isFolderByName(mapping.getSrc()) && isFolderByName(mapping.getDest())){
+					FileUtils.copyFileToDirectory(src, dest);					
+				} else if (!isFolderByName(mapping.getSrc()) && !isFolderByName(mapping.getDest())){
+					FileUtils.copyFile(src, dest);
+				}
 			} catch (IOException e) {
 				throw new RuntimeException();
 			}
 		}
+	}
+
+	private boolean isFolderByName(String name) {
+		return name.equals(".") || name.equals("..") || !name.contains(".");
+	}
+	
+	public Mappings getMappings() {
+		return mappings;
 	}
 
 }

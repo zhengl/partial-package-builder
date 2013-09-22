@@ -7,10 +7,10 @@
 	<version>0.0.0</version>
 	<name>partial-package-builder Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-  <build>
-    <finalName>partial-package-builder</finalName>
-  </build>
-  
+	<build>
+		<finalName>partial-package-builder</finalName>
+	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -23,5 +23,16 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
 		</dependency>
-	</dependencies> 
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+	</dependencies>
 </project>
