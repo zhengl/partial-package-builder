@@ -7,9 +7,6 @@
 	<version>0.0.0</version>
 	<name>partial-package-builder Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<build>
-		<finalName>partial-package-builder</finalName>
-	</build>
 
 	<dependencies>
 		<dependency>
@@ -35,4 +32,14 @@
 			<classifier>jdk15</classifier>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<finalName>partial-package-builder</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

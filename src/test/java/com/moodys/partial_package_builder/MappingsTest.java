@@ -20,10 +20,22 @@ public class MappingsTest {
 		File mappingsFile = new File("mappings.json");
 		mappingsFile.deleteOnExit();
 		
-		mappings.writeToFileAsJson(mappingsFile);
+		mappings.writeToJsonFile(mappingsFile);
 		assertTrue(mappingsFile.exists());
 		
 		JSONArray array = JSONArray.fromObject(FileUtils.readFileToString(mappingsFile));
 		assertTrue(array.size() == 2);
+	}
+	
+	public void testReadFromFile() throws Exception{		
+		File mappingsFile = new File("mappings.json");
+		mappingsFile.deleteOnExit();
+		FileUtils.writeStringToFile(mappingsFile, "[{\"src\":\"a.txt\",\"dest\":\"aa.txt\"},{\"src\":\"b.txt\",\"dest\":\"bb.txt\"}]");
+		
+		Mappings mappings = new Mappings();
+		mappings.readFromJsonFile(mappingsFile);
+		
+		assertTrue(mappings.toList().size() == 2);
+		assertTrue(mappings.toList().get(0).getSrc().equals("a.txt"));
 	}
 }
