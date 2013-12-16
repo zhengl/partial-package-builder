@@ -5,7 +5,9 @@ import java.util.List;
 public interface PackageRepository {
 
 	void addPackage(Package pack);
-
+	
 	List<Package> getPackages();
+
+	Package getPackageByName(String name);
 
 }

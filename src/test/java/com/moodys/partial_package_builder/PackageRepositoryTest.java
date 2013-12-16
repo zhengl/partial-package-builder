@@ -4,22 +4,24 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class PackageRepositoryTest {
 	Fixture fixture;
+	PackageRepository repo;
 
 	@Before
 	public void before() throws IOException {
 		fixture = new Fixture();
 		fixture.create();
+		repo = new FileSystemPackageRepository();
 	}
 	
 	@Test
 	public void testCreatePackage(){
-		PackageRepository repo = new FileSystemPackageRepository();
 		Package pack = new Package("foo", fixture.srcFolder);
 		repo.addPackage(pack);
 		assertEquals(1, repo.getPackages().size());
@@ -28,8 +30,18 @@ public class PackageRepositoryTest {
 		assertEquals(fixture.srcFolder.getAbsolutePath(), returnedPack.getSrcFolder().getAbsolutePath());
 	}
 	
+	@Test
+	public void testGetPackageByName(){
+		Package pack = new Package("foo", fixture.srcFolder);
+		repo.addPackage(pack);
+		
+		Package returnedPack = repo.getPackageByName("foo");
+		assertEquals(fixture.srcFolder.getAbsolutePath(), returnedPack.getSrcFolder().getAbsolutePath());
+	}
+	
 	@After
 	public void after() throws Exception {
 		fixture.destroy();
+		FileUtils.deleteDirectory(FileSystemPackageRepository.REPO_PATH);
 	}
 }

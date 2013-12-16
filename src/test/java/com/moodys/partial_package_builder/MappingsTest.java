@@ -27,6 +27,7 @@ public class MappingsTest {
 		assertTrue(array.size() == 2);
 	}
 	
+	@Test
 	public void testReadFromFile() throws Exception{		
 		File mappingsFile = new File("mappings.json");
 		mappingsFile.deleteOnExit();

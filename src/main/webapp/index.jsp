@@ -14,10 +14,7 @@
 	<div class="container">
 		<div class="row">
 			<aside class="col-md-4">
-				<select class="form-control">
-					<option>ProjectA</option>
-					<option>ProjectB</option>
-				</select>
+				<select id="projects" class="form-control"></select>
 				<div class="panel-group" id="accordion">
 					<div class="panel panel-default">
 						<div class="panel-heading">
@@ -63,4 +60,12 @@
 </body>
 <script src="//code.jquery.com/jquery.js"></script>
 <script src="scripts/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$.get('rest/packages', function(packages) {
+		var $projects = $('#projects');
+		packages.forEach(function(pack) {
+			$projects.append($('<option>' + pack.name + '</option>'))
+		});
+	});
+</script>
 </html>

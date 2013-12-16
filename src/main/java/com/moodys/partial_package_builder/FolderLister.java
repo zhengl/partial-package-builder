@@ -27,7 +27,7 @@ public class FolderLister {
 	private void listToJson(File file, JSONArray array) {
 		for (File child : file.listFiles()) {
 			JSONObject bean = new JSONObject();
-			bean.element("name", child.toString());
+			bean.element("name", child.getName());
 			if (child.isDirectory()) {
 				JSONArray childrenArray = new JSONArray();
 				listToJson(child, childrenArray);
